@@ -91,6 +91,10 @@ function init(){
 	slider.noUiSlider.on('update', function (values, handle) {
 		setColorFromSlider(Math.round(values))
 	});
+	slider.noUiSlider.on('start', function (values, handle) {
+		// console.log("hello")
+		uncheckRadios()
+	});
 }
 
 window.onload = init;
