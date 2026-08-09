@@ -3,6 +3,9 @@ body {
 	-ms-overflow-style: none; /* for Internet Explorer, Edge */
 	scrollbar-width: none; /* for Firefox */
 	overflow-y: hidden; 
+	min-height: 100vh;
+	user-select: none;
+	-webkit-user-select: none;
 }
 
 body::-webkit-scrollbar {
@@ -11,14 +14,17 @@ body::-webkit-scrollbar {
 
 #panel {
 	opacity: 1;
-	transition: opacity 0.1s linear;
+	transition: opacity 0.15s ease-in-out, visibility 0.15s ease-in-out;
+	visibility: visible;
 }
 
 #panel.hide {
 	opacity: 0;
+	pointer-events: none;
+	visibility: hidden;
 }
 
 .py-6 {
 	padding-top: 3rem!important;
-    padding-bottom: 3rem!important;
+	padding-bottom: 3rem!important;
 }

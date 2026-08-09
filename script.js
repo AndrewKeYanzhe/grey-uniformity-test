@@ -103,22 +103,57 @@ function checkKey(e) {
 
 	//space key
 	if (e.keyCode == '32') {
-
-		var panel = document.getElementById("panel")
-
-		if (panel.classList.contains('hide')){
-			closeFullscreen()
-		} else {
-			openFullscreen()
-		}
-
-		panel.classList.toggle('hide');
-
+		togglePanel();
 	}
-
-
 }
 
+function togglePanel() {
+	var panel = document.getElementById("panel");
+	if (panel.classList.contains('hide')) {
+		showPanel();
+	} else {
+		hidePanel();
+	}
+}
+
+function hidePanel() {
+	var panel = document.getElementById("panel");
+	panel.classList.add('hide');
+	openFullscreen();
+}
+
+function showPanel() {
+	var panel = document.getElementById("panel");
+	panel.classList.remove('hide');
+	closeFullscreen();
+}
+
+// Triple click / triple tap detection
+var tapCount = 0;
+var tapResetTimer = null;
+
+function handleTripleAction(e) {
+	var panel = document.getElementById("panel");
+
+	// Ignore clicks/taps inside active panel elements
+	if (!panel.classList.contains('hide') && panel.contains(e.target)) {
+		return;
+	}
+
+	tapCount++;
+	if (tapResetTimer) clearTimeout(tapResetTimer);
+
+	if (tapCount >= 3) {
+		tapCount = 0;
+		togglePanel();
+	} else {
+		tapResetTimer = setTimeout(function() {
+			tapCount = 0;
+		}, 500);
+	}
+}
+
+document.addEventListener('click', handleTripleAction);
 
 
 function init(){
